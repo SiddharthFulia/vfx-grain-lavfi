@@ -7,8 +7,8 @@ OUT="${2:-super8.mp4}"
 G="${3:-26}"
 
 FILTER="\
-scale=iw*0.55:ih*0.55:flags=neighbor,\
-scale=iw/0.55:ih/0.55:flags=bilinear,\
+scale='2*round(iw*0.55/2):2*round(ih*0.55/2)':flags=neighbor,\
+scale='2*round(iw/0.55/2):2*round(ih/0.55/2)':flags=bilinear,\
 colorchannelmixer=rr=1.08:gg=1.0:bb=0.88,\
 noise=alls=${G}:allf=t+u,\
 gblur=sigma=0.6,\

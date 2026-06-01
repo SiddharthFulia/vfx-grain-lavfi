@@ -25,11 +25,7 @@ teardown() {
 
 @test "grain-super8.sh exits 0" {
   run "$ROOT/scripts/grain-super8.sh" "$IN" "$OUT_DIR/s8.mp4"
-  if [ "$status" -ne 0 ]; then
-    echo "status: $status"
-    echo "output: $output"
-  fi
-  [ "$status" -eq 0 ]
+  [ "$status" -eq 0 ] || { echo "status=$status"; echo "$output"; false; }
   [ -s "$OUT_DIR/s8.mp4" ]
 }
 
