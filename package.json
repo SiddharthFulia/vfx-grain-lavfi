@@ -1,0 +1,46 @@
+{
+  "name": "vfx-grain-lavfi",
+  "version": "0.1.0",
+  "description": "FFmpeg lavfi filter chains for film grain, halation, chromatic aberration, and cinematic grade. Bash scripts + TypeScript chain builders.",
+  "license": "MIT",
+  "author": "Siddharth Fulia",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "vfx-grain-lavfi": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "scripts",
+    "docs",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint:shell": "shellcheck scripts/*.sh",
+    "test:bats": "bats bats"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.4.0"
+  },
+  "keywords": [
+    "ffmpeg",
+    "lavfi",
+    "film-grain",
+    "halation",
+    "vfx",
+    "cinematic",
+    "color-grading",
+    "chromatic-aberration"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SiddharthFulia/vfx-grain-lavfi.git"
+  }
+}
