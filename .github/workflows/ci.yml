@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  shellcheck:
+    name: shellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run shellcheck
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y shellcheck
+          shellcheck scripts/*.sh
+
+  ts-tests:
+    name: TypeScript snapshot tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+
+  bats:
+    name: bats smoke tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install ffmpeg & bats
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg bats
+      - name: Generate fixture clip
+        run: |
+          mkdir -p bats/fixtures
+          ffmpeg -y -f lavfi -i "testsrc=duration=1:size=320x240:rate=24" \
+                 -pix_fmt yuv420p bats/fixtures/in.mp4
+      - name: Run bats
+        run: bats bats
